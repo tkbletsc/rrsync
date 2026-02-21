@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-rrsync.py — Restrict rsync to a specific subdirectory via SSH forced command.
+rrsync.py — Restrict rsync to a specific directory via SSH forced command.
 
 Usage in authorized_keys:
 
-    command="rrsync.py [-ro] [--log-file /path/to/log] subdir" ssh-rsa AAAA...
+    command="rrsync.py [-ro] [--log-file /path/to/log] topdir" ssh-rsa AAAA...
 
 Examples:
 
@@ -102,10 +102,10 @@ def write_log(log_file: Path, command: str, message: str):
 
 def main():
     # command line args
-    parser = argparse.ArgumentParser(description="Restrict rsync to a specific subdirectory")
+    parser = argparse.ArgumentParser(description="Restrict rsync to a specific directory")
     parser.add_argument("-ro", "--read-only", action="store_true", help="Allow read-only access only")
     parser.add_argument("--log-file", type=Path, default=None, help="Optional log file path")
-    parser.add_argument("topdir", type=Path, help="Top-level allowed subdirectory")
+    parser.add_argument("topdir", type=Path, help="Top-level allowed directory")
     args = parser.parse_args()
 
     original_command = get_original_command()
